@@ -1,0 +1,21 @@
+﻿services:
+  web:
+    build:
+      context: .
+      dockerfile: ./apps/web/Dockerfile.web
+    volumes:
+      - ./apps/web:/app/apps/web
+      - ./packages:/app/packages
+    environment:
+      - NEXT_PUBLIC_API_BASE_URL=http://localhost/api
+      - NEXT_PUBLIC_WEB_URL=http://localhost
+
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile.api
+    volumes:
+      - ./apps/api:/code
+    environment:
+      - DEBUG=1
+      - DATABASE_URL=postgresql://plane:plane@plane-db/plane
